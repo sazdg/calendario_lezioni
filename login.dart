@@ -31,28 +31,32 @@ class MyApp extends StatelessWidget {
 
 class Login extends StatelessWidget {
 
+
  //final AuthController controller = Get.find();
   @override
   Widget build(BuildContext context) {
    // Map argumentData = Get.arguments ?? Map();
     // print('argomenti login = $argumentData');
-    if (false) { //se sei autenticato
+    //if (true) { //se sei autenticato
    //   Future.delayed(Duration(seconds: 5), () {
         // cancella la pagina dopo 5 secondi
      //   Navigator.of(context).pop();
       // });
-      return UserPage();
-    } else { //se non sei autenticato
+      //return UserPage();
+    //} else { //se non sei autenticato
       return LoginPage();
-    }
+    //}
   }
 }
 
-class UserPage extends StatelessWidget { //pagina utente autenticato
+class UserPage extends StatelessWidget {
+  final ControllerLogin controller = Get.find();//pagina utente autenticato
   void logout(){
     print ('logout');
 
   }
+
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -61,6 +65,7 @@ class UserPage extends StatelessWidget { //pagina utente autenticato
       body: Center(
         child: Column(
           children:<Widget>[
+            Text('Benvenuto ${controller.nomeUtente}'),
             MaterialButton(
                 onPressed: () =>logout() ,
               color:Colors.green,
@@ -78,18 +83,27 @@ class UserPage extends StatelessWidget { //pagina utente autenticato
 
 class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi LOGIN
   final ControllerLogin controller = Get.find();
-  void login(){
+  void login() async{
     print('Non sei autenticato, quindi sei alla pagina di login');
     if (controller.nome.text != '' && controller.password.text != '') {
       print(controller.nome.text);
       print(controller.password.text);
-      recuperaCredenzialiJson();
+      if (await checkLogin()){
+        //vai alla pagina userPage
+        controller.messaggio ='Credenziali corrette' ;
+        print("fdsfds");
+      } else {
+        controller.messaggio = 'Credenziali sbagliate';
+        print("nop");
+      }
     }
   }
-  Future<bool> recuperaCredenzialiJson() async {
+  Future<bool> checkLogin() async {
+    //TODO inserire le credenziali qui e mandarle all'api
     var risposta = false;
     try {
-      var url = Uri.parse('https://settimogiacomo.github.io/json1/credenziali_utenti.json');
+      //var url = Uri.parse('https://settimogiacomo.github.io/json1/credenziali_utenti.json');
+      var url = Uri.parse('http://localhost:3005/check-login');
       var response = await http.get(url);
       if (response.statusCode == 200) {
         print(response.body);
@@ -136,6 +150,8 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
                   ),
                 ),
                 const Spacer(),
+                Text(controller.messaggio),//TODO capire perchè non aggiorna
+                const Spacer(),
               ]
           ),
         )
@@ -146,6 +162,8 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
 class ControllerLogin extends GetxController{
   var nome = TextEditingController();
   var password = TextEditingController();
+  var messaggio = '';
+  var nomeUtente = "Ciao".obs;
 }
 
 
