@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -88,32 +90,45 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
     if (controller.nome.text != '' && controller.password.text != '') {
       print(controller.nome.text);
       print(controller.password.text);
-      if (await checkLogin()){
+
+      if (await checkLogin(controller.nome.text, controller.password.text)){
         //vai alla pagina userPage
-        controller.messaggio ='Credenziali corrette' ;
+        controller.messaggio.value ='Credenziali corrette' ;
+        controller.coloreMex.value = Colors.green;
         print("fdsfds");
       } else {
-        controller.messaggio = 'Credenziali sbagliate';
+        controller.messaggio.value = 'Credenziali sbagliate';
+        controller.coloreMex.value = Colors.redAccent;
         print("nop");
       }
     }
   }
-  Future<bool> checkLogin() async {
+  Future<bool> checkLogin(String nome, String pwd) async {
     //TODO inserire le credenziali qui e mandarle all'api
     var risposta = false;
     try {
-      //var url = Uri.parse('https://settimogiacomo.github.io/json1/credenziali_utenti.json');
       var url = Uri.parse('http://localhost:3005/check-login');
-      var response = await http.get(url);
+      var response = await http.get(url, headers: {
+        "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+        "Access-Control-Allow-Credentials":'true', // Required for cookies, authorization headers with HTTPS
+        "Access-Control-Allow-Headers":"Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+        "Access-Control-Allow-Methods": "*",
+        'Content-Type': 'application/json',
+      });
+
+      var rispJson = json.decode(response.body);
       if (response.statusCode == 200) {
-        print(response.body);
-        risposta = true;
-      }
-      else {
+
+        if (rispJson['isUser'] == 'true'){
+          risposta = true;
+        }
+
+      } else {
         print('errorejson');
       }
 
     } catch(e) {
+      print(e);
       return risposta;
     }
 
@@ -150,7 +165,13 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
                   ),
                 ),
                 const Spacer(),
-                Text(controller.messaggio),//TODO capire perchè non aggiorna
+                Obx(() => Text(
+                  controller.messaggio.string,
+                  style: TextStyle(
+                    color: controller.coloreMex.value,
+                    ),
+                  ),
+                ),
                 const Spacer(),
               ]
           ),
@@ -162,7 +183,8 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
 class ControllerLogin extends GetxController{
   var nome = TextEditingController();
   var password = TextEditingController();
-  var messaggio = '';
+  var messaggio = ''.obs;
+  var coloreMex = Colors.transparent.obs;
   var nomeUtente = "Ciao".obs;
 }
 
