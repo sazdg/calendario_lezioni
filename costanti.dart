@@ -1,0 +1,1 @@
+const SERVER = 'http://localhost:3005';

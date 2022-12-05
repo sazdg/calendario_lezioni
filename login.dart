@@ -1,8 +1,13 @@
+import 'dart:async';
 import 'dart:convert';
 
+import 'package:calendario_lezioni/route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
+import 'costanti.dart';
+
 
 
 
@@ -20,13 +25,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'CALENDARIO LEZIONI',
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
       home:Login(),
+      getPages: funzioneRouting(), //QUELLA FATTA CON GETPAGES
+
     );
   }
 }
@@ -54,7 +61,14 @@ class Login extends StatelessWidget {
 class UserPage extends StatelessWidget {
   final ControllerLogin controller = Get.find();//pagina utente autenticato
   void logout(){
-    print ('logout');
+    controller.messaggio.value ='' ;
+    controller.coloreMex.value = Colors.transparent;
+    controller.nomeUtente.value = '';
+    controller.nome.text = '';
+    controller.password.text = '';
+    Get.offAndToNamed('/loginpage');
+
+
 
   }
 
@@ -67,14 +81,17 @@ class UserPage extends StatelessWidget {
       body: Center(
         child: Column(
           children:<Widget>[
+            const Spacer(),
             Text('Benvenuto ${controller.nomeUtente}'),
+            const Spacer(),
             MaterialButton(
-                onPressed: () =>logout() ,
+                onPressed: () => logout() ,
               color:Colors.green,
               child: const Text(
                 "LOGOUT"
               ),
-            )
+            ),
+            const Spacer(),
           ]
         ),
       )
@@ -93,28 +110,34 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
 
       if (await checkLogin(controller.nome.text, controller.password.text)){
         //vai alla pagina userPage
-        controller.messaggio.value ='Credenziali corrette' ;
+        controller.messaggio.value ='Credenziali corrette, verrai reindirizzato alla tua pagina' ;
         controller.coloreMex.value = Colors.green;
-        print("fdsfds");
+        controller.nomeUtente.value = controller.nome.text;
+        Timer(const Duration(seconds: 2), ()=> Get.off(() =>UserPage()));
+
       } else {
         controller.messaggio.value = 'Credenziali sbagliate';
         controller.coloreMex.value = Colors.redAccent;
-        print("nop");
       }
     }
   }
   Future<bool> checkLogin(String nome, String pwd) async {
-    //TODO inserire le credenziali qui e mandarle all'api
     var risposta = false;
+    Map credenziali = {
+      'user' : nome,
+      'password' : pwd
+    };
+    var credenzialiJson = json.encode(credenziali);
+
     try {
-      var url = Uri.parse('http://localhost:3005/check-login');
-      var response = await http.get(url, headers: {
+      var url = Uri.parse('$SERVER/check-login');
+      var response = await http.post(url, headers: {
         "Access-Control-Allow-Origin": "*", // Required for CORS support to work
         "Access-Control-Allow-Credentials":'true', // Required for cookies, authorization headers with HTTPS
         "Access-Control-Allow-Headers":"Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
         "Access-Control-Allow-Methods": "*",
         'Content-Type': 'application/json',
-      });
+      }, body: credenzialiJson);
 
       var rispJson = json.decode(response.body);
       if (response.statusCode == 200) {
