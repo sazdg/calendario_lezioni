@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:calendario_lezioni/userpage.dart';
 import 'package:calendario_lezioni/route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -44,61 +45,9 @@ class Login extends StatelessWidget {
  //final AuthController controller = Get.find();
   @override
   Widget build(BuildContext context) {
-   // Map argumentData = Get.arguments ?? Map();
-    // print('argomenti login = $argumentData');
-    //if (true) { //se sei autenticato
-   //   Future.delayed(Duration(seconds: 5), () {
-        // cancella la pagina dopo 5 secondi
-     //   Navigator.of(context).pop();
-      // });
-      //return UserPage();
-    //} else { //se non sei autenticato
       return LoginPage();
-    //}
   }
 }
-
-class UserPage extends StatelessWidget {
-  final ControllerLogin controller = Get.find();//pagina utente autenticato
-  void logout(){
-    controller.messaggio.value ='' ;
-    controller.coloreMex.value = Colors.transparent;
-    controller.nomeUtente.value = '';
-    controller.nome.text = '';
-    controller.password.text = '';
-    Get.offAndToNamed('/loginpage');
-
-
-
-  }
-
-
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pagina utente autenticato'),
-      ) ,
-      body: Center(
-        child: Column(
-          children:<Widget>[
-            const Spacer(),
-            Text('Benvenuto ${controller.nomeUtente}'),
-            const Spacer(),
-            MaterialButton(
-                onPressed: () => logout() ,
-              color:Colors.green,
-              child: const Text(
-                "LOGOUT"
-              ),
-            ),
-            const Spacer(),
-          ]
-        ),
-      )
-    );
-  }
-}
-
 
 class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi LOGIN
   final ControllerLogin controller = Get.find();
@@ -113,7 +62,7 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
         controller.messaggio.value ='Credenziali corrette, verrai reindirizzato alla tua pagina' ;
         controller.coloreMex.value = Colors.green;
         controller.nomeUtente.value = controller.nome.text;
-        Timer(const Duration(seconds: 2), ()=> Get.off(() =>UserPage()));
+        Timer(const Duration(seconds: 2), ()=> Get.off(() => UserPage()));
 
       } else {
         controller.messaggio.value = 'Credenziali sbagliate';
