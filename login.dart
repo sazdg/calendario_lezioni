@@ -103,10 +103,7 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
       print(e);
       return risposta;
     }
-
     return risposta;
-
-
   }
   Widget build(BuildContext context) {
     return Scaffold(

@@ -29,11 +29,11 @@ class UserPage extends StatelessWidget {
         ) ,
         body: Center(
           child: GridView.count(
-              crossAxisCount: 1,
+              crossAxisCount: 3,
               padding: EdgeInsets.all(10.0),
               children: <Widget>[
                 MaterialButton(
-                  onPressed: () => Get.offAndToNamed('/...'),
+                  onPressed: () => Get.toNamed('/lezioni-prenotate'),
                   color: RandomColorModel().getColor(),
                   child: Column(
                     children: const [
@@ -45,7 +45,7 @@ class UserPage extends StatelessWidget {
                   )
                 ),
                 MaterialButton(
-                    onPressed: () => Get.offAndToNamed('/...'),
+                    onPressed: () => Get.toNamed('/prenota'),
                     color: RandomColorModel().getColor(),
                     child: Column(
                         children: const [
@@ -68,53 +68,14 @@ class UserPage extends StatelessWidget {
                         ]
                     )
                 ),
-              ] /*SliverChildListDelegate(
-
-                items.map((data) =>
-                    GestureDetector(
-                        onTap: (){
-                          print("Navigator.of(context).pushNamed(RouteName.GridViewExtent)");
-
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(16),
-                          color: data.color,
-                          child: Column(
-                            children: [
-                              data.icon,
-                              Text(data.title,
-                                  style: const TextStyle(fontSize: 22, color: Colors.black),
-                                  textAlign: TextAlign.center)
-                            ],
-                          ),
-                        )),
-                ).toList(),
-              )),*/
+              ]
         ),
         ),
     );
   }
-/*  List<GridListItems> items = [
-    GridListItems('Lista lezioni prenotate', const Icon(Icons.view_list_outlined)),
-    GridListItems('Prenotazione lezioni', const Icon(Icons.add_box_rounded)),
-    GridListItems('Logout', const Icon(Icons.logout_rounded)),
-  ];*/
+
 }
 
-/*class GridListItems {
-
-  Color color = RandomColorModel().getColor();
-  String title = "";
-  Icon icon = const Icon(Icons.contact_mail);
-
-  //Function myFunction = logout();
-
-
-  GridListItems(String titolo, Icon icona) {
-    title = titolo;
-    icon = icona;
-  }
-}*/
 
 class RandomColorModel {
   Random random = Random();
