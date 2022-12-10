@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'CALENDARIO LEZIONI',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.teal,
       ),
       home:Login(),
       getPages: funzioneRouting(), //QUELLA FATTA CON GETPAGES
@@ -131,7 +131,7 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
                 const Spacer(),
                 MaterialButton(
                   onPressed: () =>login() ,
-                  color:Colors.green,
+                  color:Colors.teal,
                   child: const Text(
                       "LOGIN"
                   ),
@@ -160,4 +160,4 @@ class ControllerLogin extends GetxController{
   var nomeUtente = "Ciao".obs;
 }
 
-
+//https://www.color-hex.com/color-palette/595
