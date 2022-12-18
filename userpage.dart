@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:calendario_lezioni/login.dart';
@@ -12,6 +13,8 @@ import 'costanti.dart';
 class UserPage extends StatelessWidget {
 
   final ControllerLogin controller = Get.find();//pagina utente autenticato
+  final ControllerListaLezioni myCntrlListaLezioni = Get.find();
+
   void logout(){
     controller.messaggio.value ='' ;
     controller.coloreMex.value = Colors.transparent;
@@ -21,8 +24,43 @@ class UserPage extends StatelessWidget {
     Get.offAndToNamed('/loginpage');
   }
 
+  void getDataListaLezioni() async {
+    try {
+      var url = Uri.parse('$SERVER/get-lezioni');
+      var response = await http.get(url, headers: {
+        "Access-Control-Allow-Origin": "*",
+        // Required for CORS support to work
+        "Access-Control-Allow-Credentials": 'false',
+        // Required for cookies, authorization headers with HTTPS
+        "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+        "Access-Control-Allow-Methods": "*",
+        'Content-Type': 'application/json',
+      });
+
+      var rispJson = json.decode(response.body);
+      if (response.statusCode == 200) {
+        if (rispJson['isTable'] == 'True') {
+          for (var i = 0; i < rispJson['data'].length; i++) {
+            var riga = rispJson['data'][i];
+
+            myCntrlListaLezioni.listalezioni.add(
+                Lezione(riga['id_lezione'], riga['id_insegnante'],
+                    riga['id_studente'], riga['inizio_lezione'],
+                    riga['fine_lezione'], riga['stato'])
+            );
+          }
+        }
+      } else {
+        print("non ci sono dati");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   Widget build(BuildContext context) {
+    myCntrlListaLezioni.listalezioni = [];
+    getDataListaLezioni();
     return Scaffold(
         appBar: AppBar(
           title: Text('Homepage di ${controller.nomeUtente}'),

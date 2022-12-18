@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:calendario_lezioni/userpage.dart';
 import 'package:calendario_lezioni/route.dart';
+import 'package:calendario_lezioni/lista_lezioni_prenotate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +15,8 @@ import 'costanti.dart';
 
 void main() {
   final cntrl = Get.put(ControllerLogin());
- runApp(MyApp());
+  final cntrlLista = Get.put(ControllerListaLezioni());
+  runApp(MyApp());
 
 }
 
@@ -155,6 +157,10 @@ class ControllerLogin extends GetxController{
   var messaggio = ''.obs;
   var coloreMex = Colors.transparent.obs;
   var nomeUtente = "Ciao".obs;
+}
+
+class ControllerListaLezioni extends GetxController {
+  List<Lezione> listalezioni = [];
 }
 
 //https://www.color-hex.com/color-palette/595
