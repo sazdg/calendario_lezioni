@@ -65,7 +65,31 @@ class TabellaLezioniPrenotate extends StatelessWidget {
         DataColumn(
           label: Expanded(
             child: Text(
+              'insegnante',
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
+          ),
+        ),
+        DataColumn(
+          label: Expanded(
+            child: Text(
+              'materia',
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
+          ),
+        ),
+        DataColumn(
+          label: Expanded(
+            child: Text(
               'id_studente',
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
+          ),
+        ),
+        DataColumn(
+          label: Expanded(
+            child: Text(
+              'username',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
@@ -109,7 +133,10 @@ class TabellaLezioniPrenotate extends StatelessWidget {
             cells: <DataCell>[
               DataCell(Text(elemento.IdLezione.toString())),
               DataCell(Text(elemento.IdInsegnante.toString())),
+              DataCell(Text(elemento.Insegnante.toString())),
+              DataCell(Text(elemento.Materia.toString())),
               DataCell(Text(elemento.IdStudente.toString())),
+              DataCell(Text(elemento.Username.toString())),
               DataCell(Text(elemento.InizioLezione)),
               DataCell(Text(elemento.FineLezione)),
               DataCell(Text(elemento.Stato.toString())),

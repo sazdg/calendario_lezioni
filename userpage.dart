@@ -39,13 +39,13 @@ class UserPage extends StatelessWidget {
 
       var rispJson = json.decode(response.body);
       if (response.statusCode == 200) {
-        if (rispJson['isTable'] == 'True') {
+        if (rispJson['isTable'] == 'true') {
           for (var i = 0; i < rispJson['data'].length; i++) {
             var riga = rispJson['data'][i];
 
             myCntrlListaLezioni.listalezioni.add(
-                Lezione(riga['id_lezione'], riga['id_insegnante'],
-                    riga['id_studente'], riga['inizio_lezione'],
+                Lezione(riga['id_lezione'], riga['id_insegnante'], riga['insegnante'], riga['materia'],
+                    riga['id_studente'], riga['username'], riga['inizio_lezione'],
                     riga['fine_lezione'], riga['stato'])
             );
           }
