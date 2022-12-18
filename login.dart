@@ -7,6 +7,7 @@ import 'package:calendario_lezioni/lista_lezioni_prenotate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:sizer/sizer.dart';
 
 import 'costanti.dart';
 
@@ -28,15 +29,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'CALENDARIO LEZIONI',
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-      ),
-      home:Login(),
-      getPages: funzioneRouting(), //QUELLA FATTA CON GETPAGES
+    return Sizer(
+      builder: (context, orientation, deviceType){
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'CALENDARIO LEZIONI',
+          theme: ThemeData(
+            primarySwatch: Colors.teal,
+          ),
+          home:Login(),
+          getPages: funzioneRouting(), //QUELLA FATTA CON GETPAGES
 
+        );
+      },
     );
   }
 }
@@ -117,15 +122,26 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
               children:<Widget>[
                  const Spacer(),
                 const Text('Username'),
-                TextField(autofocus: true,
+                 Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
+                child: TextField(autofocus: true,
                 textAlign: TextAlign.center,
                 controller: controller.nome,
+                  decoration:InputDecoration(
+                  border: OutlineInputBorder(),
+                  ),
                 ),
-                const Spacer(),
+                ),
                 const Text('Password'),
-                TextField(autofocus: false,
-                textAlign: TextAlign.center,
-                controller: controller.password,
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
+                  child: TextField(autofocus: false,
+                    textAlign: TextAlign.center,
+                    controller: controller.password,
+                    decoration:InputDecoration(
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
                 ),
                 const Spacer(),
                 MaterialButton(
@@ -161,6 +177,7 @@ class ControllerLogin extends GetxController{
 
 class ControllerListaLezioni extends GetxController {
   List<Lezione> listalezioni = [];
+  var SceltaMateriaDropDown = ''.obs;
 }
 
 //https://www.color-hex.com/color-palette/595

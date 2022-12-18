@@ -8,83 +8,70 @@ import 'package:http/http.dart' as http;
 
 import 'costanti.dart';
 
-
 class PrenotaLezioni extends StatelessWidget {
-
   final ControllerLogin controller = Get.find(); //pagina utente autenticato
-
 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lista lezioni prenotate di ${controller.nomeUtente}'),
+        title: Text('${controller.nomeUtente} prenota una lezione'),
       ),
-      body: const Center(
-        child: TabellaLezioniPrenotate(),
+      body: Center(
+        child: FormPrenotaLezioni(),
       ),
     );
   }
 }
 
+class FormPrenotaLezioni extends StatelessWidget {
+  FormPrenotaLezioni({super.key});
 
-
-
-class TabellaLezioniPrenotate extends StatelessWidget {
-  const TabellaLezioniPrenotate({super.key});
-
+  final ControllerListaLezioni myCntrlListaLezioni = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    return DataTable(
-      columns: const <DataColumn>[
-        DataColumn(
-          label: Expanded(
-            child: Text(
-              'Name',
-              style: TextStyle(fontStyle: FontStyle.italic),
+    return Center(
+      child: Container(
+        padding: const EdgeInsets.all(0.0),
+        child: Column(
+          children: <Widget>[
+            const Spacer(),
+            const Text(
+              "Scegli una materia",
             ),
-          ),
-        ),
-        DataColumn(
-          label: Expanded(
-            child: Text(
-              'Age',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-          ),
-        ),
-        DataColumn(
-          label: Expanded(
-            child: Text(
-              'Role',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-          ),
-        ),
-      ],
-      rows: const <DataRow>[
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Sarah')),
-            DataCell(Text('19')),
-            DataCell(Text('Student')),
+            Obx(() => DropdownButton<String>(
+                  value: myCntrlListaLezioni.SceltaMateriaDropDown.value,
+                  //elevation: 5,
+                  style: const TextStyle(color: Colors.black),
+                  items: <String>[
+                    '',
+                    'Italiano',
+                    'Matematica',
+                    'Flutter',
+                    'Calcolo numerico',
+                  ].map<DropdownMenuItem<String>>((String materia) {
+                    return DropdownMenuItem<String>(
+                      value: materia,
+                      child: Text(materia),
+                    );
+                  }).toList(),
+                  hint: const Text(
+                    "Scegli una materia",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  onChanged: (String? value) {
+                    myCntrlListaLezioni.SceltaMateriaDropDown.value = value!;
+                    print(
+                        "scelta ${myCntrlListaLezioni.SceltaMateriaDropDown.value}");
+                  },
+                )),
+            const Spacer(),
           ],
         ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Janine')),
-            DataCell(Text('43')),
-            DataCell(Text('Professor')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('William')),
-            DataCell(Text('27')),
-            DataCell(Text('Associate Professor')),
-          ],
-        ),
-      ],
+      ),
     );
   }
 }

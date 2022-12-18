@@ -23,7 +23,12 @@ class ListaLezioniPrenotate extends StatelessWidget {
         title: Text('Lista lezioni prenotate di ${controller.nomeUtente}'),
       ),
       body: Center(
-        child: TabellaLezioniPrenotate(),
+        child: Column(
+          children:<Widget>[
+            TabellaLezioniPrenotate(),
+            Spacer(),
+          ]
+        )
       ),
     );
   }
@@ -34,8 +39,6 @@ class ListaLezioniPrenotate extends StatelessWidget {
 
 class TabellaLezioniPrenotate extends StatelessWidget {
   TabellaLezioniPrenotate({super.key});
-
-  //List<Lezione> lezioni = [];
 
   final ControllerListaLezioni myCntrlListaLezioni = Get.find();
 
@@ -144,30 +147,13 @@ class TabellaLezioniPrenotate extends StatelessWidget {
                 onPressed: () => print('prova'),
                 color:Colors.teal,
                 child: const Text(
-                    "Scopri stato"
+                    "Dettagli"
                   ),
                 ),
               ),
             ],
           ),
         ).toList(),
-      /*<DataRow>[
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Sarah')),
-            DataCell(Text('19')),
-            DataCell(
-              MaterialButton(
-                onPressed: () => getData() ,
-                color:Colors.teal,
-                child: const Text(
-                    "preleva dati"
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],*/
     );
   }
 }
