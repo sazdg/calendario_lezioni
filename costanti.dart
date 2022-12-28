@@ -25,3 +25,23 @@ class Lezione {
     Stato = stato;
   }
 }
+
+class Prenota {
+
+  late int IdGiorno;
+  late int IdInsegnante;
+  late String Materia;
+  late String InizioLezione;
+  late String FineLezione;
+  late int Stato;
+
+  Prenota(int idgiorno, int idinsegnante, String materia, String iniziolezione,
+      String finelezione, int stato) {
+    IdGiorno = idgiorno;
+    IdInsegnante = idinsegnante;
+    Materia = materia;
+    InizioLezione = iniziolezione;
+    FineLezione = finelezione;
+    Stato = stato;
+  }
+}

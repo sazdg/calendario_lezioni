@@ -178,6 +178,11 @@ class ControllerLogin extends GetxController{
 class ControllerListaLezioni extends GetxController {
   List<Lezione> listalezioni = [];
   var SceltaMateriaDropDown = ''.obs;
+  List<Prenota> listadataorario = [Prenota(1,1,"prova","prova","prpva",1)];
+
+
 }
+
+
 
 //https://www.color-hex.com/color-palette/595

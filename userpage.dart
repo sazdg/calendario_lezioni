@@ -62,53 +62,65 @@ class UserPage extends StatelessWidget {
     myCntrlListaLezioni.listalezioni = [];
     getDataListaLezioni();
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Homepage di ${controller.nomeUtente}'),
-        ) ,
-        body: Center(
-          child: GridView.count(
-              crossAxisCount: 3,
-              padding: EdgeInsets.all(10.0),
-              children: <Widget>[
-                MaterialButton(
+      appBar: AppBar(
+        title: Text('Homepage di ${controller.nomeUtente}'),
+      ) ,
+      body: Center(
+        child: GridView.count(
+            crossAxisCount: 3,
+            mainAxisSpacing: 20,
+            crossAxisSpacing: 20,
+            padding: EdgeInsets.all(20.0),
+            children: <Widget>[
+              ConstrainedBox(
+                constraints: BoxConstraints.expand(height: 50, width: 200),
+                child: MaterialButton(
+                  padding: EdgeInsets.all(10.00),
                   onPressed: () => Get.toNamed('/lezioni-prenotate'),
                   color: RandomColorModel().getColor(),
                   child: Column(
-                    children: const [
-                      Icon(Icons.view_list_outlined),
-                    Text("Lista lezioni prenotate",
-                        style: TextStyle(fontSize: 22, color: Colors.black),
-                        textAlign: TextAlign.center),
-                    ]
-                  )
+                      children: const [
+                        Icon(Icons.view_list_outlined),
+                        Text("Lista lezioni prenotate",
+                            style: TextStyle(fontSize: 22, color: Colors.black),
+                            textAlign: TextAlign.center),
+                      ]
+                  ),
                 ),
-                MaterialButton(
-                    onPressed: () => Get.toNamed('/prenota'),
-                    color: RandomColorModel().getColor(),
-                    child: Column(
-                        children: const [
-                          Icon(Icons.add_box_rounded),
-                          Text("Prenota le lezioni",
-                              style: TextStyle(fontSize: 22, color: Colors.black),
-                              textAlign: TextAlign.center),
-                        ]
-                    )
+              ),
+              ConstrainedBox(
+                constraints: BoxConstraints.expand(height: 50, width: 200),
+                child: MaterialButton(
+                  onPressed: () => Get.toNamed('/prenota'),
+                  color: RandomColorModel().getColor(),
+                  child: Column(
+                      children: const [
+                        Icon(Icons.add_box_rounded),
+                        Text("Prenota le lezioni",
+                            style: TextStyle(fontSize: 22, color: Colors.black),
+                            textAlign: TextAlign.center),
+                      ]
+                  ),
                 ),
-                MaterialButton(
-                    onPressed: () => logout() ,
-                    color: RandomColorModel().getColor(),
-                    child: Column(
-                        children: const [
-                          Icon(Icons.logout_rounded),
-                          Text("Logout",
-                              style: TextStyle(fontSize: 22, color: Colors.black),
-                              textAlign: TextAlign.center),
-                        ]
-                    )
+              ),
+              ConstrainedBox(
+                constraints: BoxConstraints.expand(height: 50, width: 200),
+                child: MaterialButton(
+                  onPressed: () => logout() ,
+                  color: RandomColorModel().getColor(),
+                  child: Column(
+                      children: const [
+                        Icon(Icons.logout_rounded),
+                        Text("Logout",
+                            style: TextStyle(fontSize: 22, color: Colors.black),
+                            textAlign: TextAlign.center),
+                      ]
+                  ),
                 ),
-              ]
+              ),
+            ]
         ),
-        ),
+      ),
     );
   }
 
