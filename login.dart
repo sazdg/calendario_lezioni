@@ -176,9 +176,9 @@ class ControllerLogin extends GetxController{
 }
 
 class ControllerListaLezioni extends GetxController {
-  List<Lezione> listalezioni = [];
+  final listalezioni = <Lezione>[].obs;
   var SceltaMateriaDropDown = ''.obs;
-  List<Prenota> listadataorario = [Prenota(1,1,"prova","prova","prpva",1)];
+  final listadataorario = <Prenota>[].obs;
 
 
 }

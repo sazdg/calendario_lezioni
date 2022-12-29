@@ -35,7 +35,7 @@ class FormPrenotaLezioni extends StatelessWidget {
   final ControllerListaLezioni myCntrlPrenotaLezioni = Get.find();
 
   void getData_E_Orario_Calendario_Settimana() async {
-    myCntrlPrenotaLezioni.listadataorario = [];
+    myCntrlPrenotaLezioni.listadataorario.value = <Prenota>[];
     try {
       var url = Uri.parse('$SERVER/lezione/${myCntrlPrenotaLezioni.SceltaMateriaDropDown.value}');
       print(url);
@@ -56,7 +56,7 @@ class FormPrenotaLezioni extends StatelessWidget {
             var riga = rispJson['data'][i];
 
             myCntrlPrenotaLezioni.listadataorario.add(
-                Prenota(riga['id_giorno'], riga['id_insegnante'], riga['materia'],
+                Prenota(riga['id_giorno'], riga['id_insegnante'], riga['insegnante'], riga['materia'],
                     riga['inizio_lezione'],
                     riga['fine_lezione'], riga['stato'])
             );
@@ -115,11 +115,8 @@ class FormPrenotaLezioni extends StatelessWidget {
                       fontWeight: FontWeight.w600),
                 ),
                 onChanged: (String? value) {
-                  getData_E_Orario_Calendario_Settimana();
                   myCntrlPrenotaLezioni.SceltaMateriaDropDown.value = value!;
-                  print(
-                      "scelta ${myCntrlPrenotaLezioni.SceltaMateriaDropDown.value}");
-                  print("funzione query /lezione/:materia");
+                  getData_E_Orario_Calendario_Settimana();
                 },
               )),
             ),
@@ -132,10 +129,40 @@ class FormPrenotaLezioni extends StatelessWidget {
             Container(
               margin: new EdgeInsets.symmetric(horizontal: 20.0),
               child: Center(
-                child:Column(
-              children: myCntrlPrenotaLezioni.listadataorario
-              .map((i) => ListTile(title: Text("idGiorno: ${i.IdGiorno}, inizioLezione: ${i.InizioLezione}, fineLezione: ${i.FineLezione}, Professore: ${i.IdInsegnante}")))
-              .toList()),
+                child:
+                Obx(() => Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: myCntrlPrenotaLezioni.listadataorario.value
+                        .map(
+                          (e) =>  Container(
+                          child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("idGiorno: ${e.IdGiorno} dalle ${e.InizioLezione} alle ${e.FineLezione}, Professore ${e.Insegnante}"),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                                    child: MaterialButton(
+                                      onPressed: () => print("cliccato"),
+                                      color:Colors.deepPurpleAccent,
+                                      child: Row(
+                                          children: const [
+                                            Icon(Icons.add_circle_outlined),
+                                            Text("SELEZIONA",
+                                                style: TextStyle(fontSize: 16, color: Colors.white),
+                                                textAlign: TextAlign.center),
+                                          ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                          ),
+                        ),
+                    ).toList())),
               ),
             )
           ],

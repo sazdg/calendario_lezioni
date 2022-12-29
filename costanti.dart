@@ -30,15 +30,17 @@ class Prenota {
 
   late int IdGiorno;
   late int IdInsegnante;
+  late String Insegnante;
   late String Materia;
   late String InizioLezione;
   late String FineLezione;
   late int Stato;
 
-  Prenota(int idgiorno, int idinsegnante, String materia, String iniziolezione,
+  Prenota(int idgiorno, int idinsegnante, String insegnante, String materia, String iniziolezione,
       String finelezione, int stato) {
     IdGiorno = idgiorno;
     IdInsegnante = idinsegnante;
+    Insegnante = insegnante;
     Materia = materia;
     InizioLezione = iniziolezione;
     FineLezione = finelezione;

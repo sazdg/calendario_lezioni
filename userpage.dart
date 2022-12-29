@@ -59,7 +59,7 @@ class UserPage extends StatelessWidget {
   }
 
   Widget build(BuildContext context) {
-    myCntrlListaLezioni.listalezioni = [];
+    myCntrlListaLezioni.listalezioni.value = <Lezione>[];
     getDataListaLezioni();
     return Scaffold(
       appBar: AppBar(
