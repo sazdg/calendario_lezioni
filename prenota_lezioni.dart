@@ -13,10 +13,32 @@ class PrenotaLezioni extends StatelessWidget {
   final ControllerLogin controller = Get.find(); //pagina utente autenticato
   final ControllerListaLezioni myCntrlPrenotaLezioni = Get.find();
 
+
+
+
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('${controller.nomeUtente} prenota una lezione'),
+      ),
+      body: Center(
+        child: FormPrenotaLezioni(),
+      ),
+    );
+  }
+}
+
+class FormPrenotaLezioni extends StatelessWidget {
+  FormPrenotaLezioni({super.key});
+
+  final ControllerListaLezioni myCntrlPrenotaLezioni = Get.find();
+
   void getData_E_Orario_Calendario_Settimana() async {
     myCntrlPrenotaLezioni.listadataorario = [];
     try {
       var url = Uri.parse('$SERVER/lezione/${myCntrlPrenotaLezioni.SceltaMateriaDropDown.value}');
+      print(url);
       var response = await http.get(url, headers: {
         "Access-Control-Allow-Origin": "*",
         // Required for CORS support to work
@@ -47,25 +69,6 @@ class PrenotaLezioni extends StatelessWidget {
       print(e);
     }
   }
-
-
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('${controller.nomeUtente} prenota una lezione'),
-      ),
-      body: Center(
-        child: FormPrenotaLezioni(),
-      ),
-    );
-  }
-}
-
-class FormPrenotaLezioni extends StatelessWidget {
-  FormPrenotaLezioni({super.key});
-
-  final ControllerListaLezioni myCntrlPrenotaLezioni = Get.find();
 
 
   @override
@@ -112,6 +115,7 @@ class FormPrenotaLezioni extends StatelessWidget {
                       fontWeight: FontWeight.w600),
                 ),
                 onChanged: (String? value) {
+                  getData_E_Orario_Calendario_Settimana();
                   myCntrlPrenotaLezioni.SceltaMateriaDropDown.value = value!;
                   print(
                       "scelta ${myCntrlPrenotaLezioni.SceltaMateriaDropDown.value}");
@@ -130,7 +134,7 @@ class FormPrenotaLezioni extends StatelessWidget {
               child: Center(
                 child:Column(
               children: myCntrlPrenotaLezioni.listadataorario
-              .map((i) => ListTile(title: Text(i.toString())))
+              .map((i) => ListTile(title: Text("idGiorno: ${i.IdGiorno}, inizioLezione: ${i.InizioLezione}, fineLezione: ${i.FineLezione}, Professore: ${i.IdInsegnante}")))
               .toList()),
               ),
             )
