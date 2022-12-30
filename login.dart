@@ -58,6 +58,7 @@ class Login extends StatelessWidget {
 
 class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi LOGIN
   final ControllerLogin controller = Get.find();
+
   void login() async{
     print('Non sei autenticato, quindi sei alla pagina di login');
     if (controller.nome.text != '' && controller.password.text != '') {
@@ -77,6 +78,7 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
       }
     }
   }
+
   Future<bool> checkLogin(String nome, String pwd) async {
     var risposta = false;
     Map credenziali = {
@@ -99,6 +101,7 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
       if (response.statusCode == 200) {
 
         if (rispJson['isUser'] == 'true'){
+          controller.idUtente.value = rispJson['id_studente'];
           risposta = true;
         }
 
@@ -168,6 +171,7 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
 }
 
 class ControllerLogin extends GetxController{
+  var idUtente = 0.obs;
   var nome = TextEditingController();
   var password = TextEditingController();
   var messaggio = ''.obs;

@@ -1,3 +1,6 @@
+import 'package:calendario_lezioni/login.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 const SERVER = 'http://localhost:3005';
 
 class Lezione {
@@ -35,6 +38,7 @@ class Prenota {
   late String InizioLezione;
   late String FineLezione;
   late int Stato;
+  final ControllerLogin controller = Get.find();
 
   Prenota(int idgiorno, int idinsegnante, String insegnante, String materia, String iniziolezione,
       String finelezione, int stato) {
@@ -46,4 +50,18 @@ class Prenota {
     FineLezione = finelezione;
     Stato = stato;
   }
+
+  Map<String, dynamic> toJson() => {
+    'id_giorno': IdGiorno,
+    'id_insegnante': IdInsegnante,
+    'insegnante' : Insegnante,
+    'materia': Materia,
+    'inizio_lezione' : InizioLezione,
+    'fine_lezione' : FineLezione,
+    'stato' : Stato,
+    'id_studente' : controller.idUtente.value,
+  };
+
 }
+
+final List<String> giorno = ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"];

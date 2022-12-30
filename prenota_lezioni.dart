@@ -70,6 +70,41 @@ class FormPrenotaLezioni extends StatelessWidget {
     }
   }
 
+  Future<void> inviaDatiPrenotazione(Map<String, dynamic>  jsonDati) async {
+    try {
+      var url = Uri.parse('$SERVER/prenota');
+
+      print(jsonDati);
+      var response = await http.post(
+          url,
+          headers: {
+            "Access-Control-Allow-Origin": "*",//"http://localhost",
+            "Access-Control-Allow-Credentials": 'true',
+            "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+            "Access-Control-Allow-Methods": "*",
+            'Content-Type': 'application/json',
+          },
+          body: jsonEncode(jsonDati));
+
+      var rispJson = json.decode(response.body);
+      if (response.statusCode == 200) {
+        print("Prenotato oppure no");
+      } else {
+        print("non ci sono dati");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void prenotaLezione(Prenota scelta){
+
+    Map<String, dynamic> prenotaInJson= scelta.toJson();
+    print(prenotaInJson);
+    inviaDatiPrenotazione(prenotaInJson);
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +158,7 @@ class FormPrenotaLezioni extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.fromLTRB(0, 30, 0, 10),
               child: Text(
-                "Scegli l'orario desiderato",
+                "Seleziona l'orario e il professore desiderato",
               ),
             ),
             Container(
@@ -142,16 +177,22 @@ class FormPrenotaLezioni extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("idGiorno: ${e.IdGiorno} dalle ${e.InizioLezione} alle ${e.FineLezione}, Professore ${e.Insegnante}"),
+                                  Text("${giorno[e.IdGiorno]} dalle ${e.InizioLezione} alle ${e.FineLezione}, Professore ${e.Insegnante}"),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
                                     child: MaterialButton(
-                                      onPressed: () => print("cliccato"),
+                                      onPressed: () {
+                                        prenotaLezione(e);
+                                        print(e.IdGiorno);
+                                      },
                                       color:Colors.deepPurpleAccent,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(30.0),
+                                      ),
                                       child: Row(
                                           children: const [
                                             Icon(Icons.add_circle_outlined),
-                                            Text("SELEZIONA",
+                                            Text("PRENOTA",
                                                 style: TextStyle(fontSize: 16, color: Colors.white),
                                                 textAlign: TextAlign.center),
                                           ],

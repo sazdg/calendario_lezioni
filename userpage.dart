@@ -19,6 +19,7 @@ class UserPage extends StatelessWidget {
     controller.messaggio.value ='' ;
     controller.coloreMex.value = Colors.transparent;
     controller.nomeUtente.value = '';
+    controller.idUtente.value = 0;
     controller.nome.text = '';
     controller.password.text = '';
     Get.offAndToNamed('/loginpage');
