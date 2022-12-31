@@ -16,6 +16,7 @@ class PrenotaLezioni extends StatelessWidget {
 
 
 
+
   Widget build(BuildContext context) {
 
     return Scaffold(
@@ -78,7 +79,7 @@ class FormPrenotaLezioni extends StatelessWidget {
       var response = await http.post(
           url,
           headers: {
-            "Access-Control-Allow-Origin": "*",//"http://localhost",
+            "Access-Control-Allow-Origin": "*", //"http://localhost",
             "Access-Control-Allow-Credentials": 'true',
             "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
             "Access-Control-Allow-Methods": "*",
@@ -89,6 +90,16 @@ class FormPrenotaLezioni extends StatelessWidget {
       var rispJson = json.decode(response.body);
       if (response.statusCode == 200) {
         print("Prenotato oppure no");
+        if (rispJson['ok'] == 'true') {
+          myCntrlPrenotaLezioni.ColorContainer = Colors.lightGreenAccent as Rx<Color>;
+          myCntrlPrenotaLezioni.messaggio.value =
+          'La tua lezione è stata prenotata con successo';
+        }
+        else {
+          myCntrlPrenotaLezioni.ColorContainer = Colors.redAccent as Rx<Color>;
+          myCntrlPrenotaLezioni.messaggio.value =
+          'La tua lezione non è stata prenotata';
+        }
       } else {
         print("non ci sono dati");
       }
@@ -205,6 +216,16 @@ class FormPrenotaLezioni extends StatelessWidget {
                         ),
                     ).toList())),
               ),
+            ),
+            Obx(() =>
+             Padding(
+               padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+               child: Container(
+                  color:myCntrlPrenotaLezioni.ColorContainer.value ,
+                  child: Text(
+                  myCntrlPrenotaLezioni.messaggio.string,
+            ),
+            ),),
             )
           ],
         ),

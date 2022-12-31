@@ -183,6 +183,9 @@ class ControllerListaLezioni extends GetxController {
   final listalezioni = <Lezione>[].obs;
   var SceltaMateriaDropDown = ''.obs;
   final listadataorario = <Prenota>[].obs;
+  var messaggio = ''.obs;
+  var ColorContainer = Colors.transparent.obs;
+
 
 
 }

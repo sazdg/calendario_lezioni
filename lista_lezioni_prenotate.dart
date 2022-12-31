@@ -9,6 +9,8 @@ import 'package:calendario_lezioni/route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:calendario_lezioni/dettagli_lezione.dart';
+
 
 import 'costanti.dart';
 
@@ -144,7 +146,7 @@ class TabellaLezioniPrenotate extends StatelessWidget {
               DataCell(Text(elemento.FineLezione)),
               DataCell(Text(elemento.Stato.toString())),
               DataCell(MaterialButton(
-                onPressed: () => print('prova'),
+                onPressed: ()=> Get.to(() => DettagliLezione()),
                 color:Colors.teal,
                 child: const Text(
                     "Dettagli"
