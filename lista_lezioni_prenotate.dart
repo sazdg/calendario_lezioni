@@ -21,16 +21,19 @@ class ListaLezioniPrenotate extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       appBar: AppBar(
         title: Text('Lista lezioni prenotate di ${controller.nomeUtente}'),
       ),
-      body: Center(
+      body:  Center(
         child: Column(
-          children:<Widget>[
-            TabellaLezioniPrenotate(),
-            Spacer(),
-          ]
-        )
+            children:<Widget>[
+              Expanded(
+                child:TabellaLezioniPrenotate(),
+              ),
+              Spacer(),
+            ]
+        ),
       ),
     );
   }
@@ -47,14 +50,12 @@ class TabellaLezioniPrenotate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    print(myCntrlListaLezioni.listalezioni);
-
     return DataTable(
       columns: const <DataColumn>[
         DataColumn(
           label: Expanded(
             child: Text(
-              'id_lezione',
+              'N Lezione',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
@@ -62,7 +63,7 @@ class TabellaLezioniPrenotate extends StatelessWidget {
         DataColumn(
           label: Expanded(
             child: Text(
-              'id_insegnante',
+              'Insegnante',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
@@ -70,7 +71,7 @@ class TabellaLezioniPrenotate extends StatelessWidget {
         DataColumn(
           label: Expanded(
             child: Text(
-              'insegnante',
+              'Materia',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
@@ -78,7 +79,7 @@ class TabellaLezioniPrenotate extends StatelessWidget {
         DataColumn(
           label: Expanded(
             child: Text(
-              'materia',
+              'Matricola',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
@@ -86,7 +87,7 @@ class TabellaLezioniPrenotate extends StatelessWidget {
         DataColumn(
           label: Expanded(
             child: Text(
-              'id_studente',
+              'Studente',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
@@ -94,7 +95,7 @@ class TabellaLezioniPrenotate extends StatelessWidget {
         DataColumn(
           label: Expanded(
             child: Text(
-              'username',
+              'Inizio lezione',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
@@ -102,7 +103,7 @@ class TabellaLezioniPrenotate extends StatelessWidget {
         DataColumn(
           label: Expanded(
             child: Text(
-              'inizio_lezione',
+              'Fine lezione',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
@@ -110,7 +111,7 @@ class TabellaLezioniPrenotate extends StatelessWidget {
         DataColumn(
           label: Expanded(
             child: Text(
-              'fine_lezione',
+              'Stato',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
@@ -118,15 +119,7 @@ class TabellaLezioniPrenotate extends StatelessWidget {
         DataColumn(
           label: Expanded(
             child: Text(
-              'stato',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-          ),
-        ),
-        DataColumn(
-          label: Expanded(
-            child: Text(
-              'bottone',
+              'Azioni',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
@@ -137,7 +130,6 @@ class TabellaLezioniPrenotate extends StatelessWidget {
           (elemento) => DataRow(
             cells: <DataCell>[
               DataCell(Text(elemento.IdLezione.toString())),
-              DataCell(Text(elemento.IdInsegnante.toString())),
               DataCell(Text(elemento.Insegnante.toString())),
               DataCell(Text(elemento.Materia.toString())),
               DataCell(Text(elemento.IdStudente.toString())),

@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:calendario_lezioni/userpage.dart';
 import 'package:calendario_lezioni/route.dart';
+import 'package:calendario_lezioni/dettagli_lezione.dart';
 import 'package:calendario_lezioni/lista_lezioni_prenotate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,7 @@ import 'costanti.dart';
 void main() {
   final cntrl = Get.put(ControllerLogin());
   final cntrlLista = Get.put(ControllerListaLezioni());
+  final cntrlDettagli = Get.put(ControllerDettagliLezione());
   runApp(MyApp());
 
 }
@@ -60,7 +62,6 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
   final ControllerLogin controller = Get.find();
 
   void login() async{
-    print('Non sei autenticato, quindi sei alla pagina di login');
     if (controller.nome.text != '' && controller.password.text != '') {
       print(controller.nome.text);
       print(controller.password.text);

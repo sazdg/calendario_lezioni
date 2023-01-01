@@ -22,7 +22,7 @@ class DettagliLezione extends StatelessWidget {
   }
 }
 
-class DettagliLezionePage extends StatelessWidget {//pagina utente non autenticato, quindi LOGIN
+class DettagliLezionePage extends StatelessWidget {
   final ControllerDettagliLezione controller = Get.find();
 
   void dettagliLezione() async{
