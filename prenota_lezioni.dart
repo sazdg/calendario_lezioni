@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:convert';
 
 import 'package:calendario_lezioni/login.dart';
+import 'package:calendario_lezioni/userpage.dart';
 import 'package:calendario_lezioni/route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -70,6 +71,9 @@ class FormPrenotaLezioni extends StatelessWidget {
   }
 
   Future<void> inviaDatiPrenotazione(Map<String, dynamic>  jsonDati) async {
+    myCntrlPrenotaLezioni.ColorContainer.value = Colors.transparent;
+    myCntrlPrenotaLezioni.messaggio.value = '';
+
     try {
       var url = Uri.parse('$SERVER/prenota');
 
@@ -87,17 +91,28 @@ class FormPrenotaLezioni extends StatelessWidget {
 
       var rispJson = json.decode(response.body);
       if (response.statusCode == 200) {
-        print("Prenotato oppure no");
+
         if (rispJson['ok'] == 'true') {
           myCntrlPrenotaLezioni.ColorContainer.value = Colors.lightGreenAccent;
           myCntrlPrenotaLezioni.messaggio.value =
-          'La tua lezione è stata prenotata con successo';
+          'La lezione ${myCntrlPrenotaLezioni.SceltaMateriaDropDown.value} è stata prenotata con successo';
+
+          //aggiornare la lista lezioni
+          myCntrlPrenotaLezioni.listalezioni.value = <Lezione>[];
+          UserPage prova = new UserPage();
+          prova.getDataListaLezioni();
+          //toglie la lista lezioni da prenotare
+          myCntrlPrenotaLezioni.SceltaMateriaDropDown.value = '';
+          myCntrlPrenotaLezioni.listadataorario.value = <Prenota>[];
+
         }
         else {
           myCntrlPrenotaLezioni.ColorContainer.value = Colors.redAccent;
           myCntrlPrenotaLezioni.messaggio.value =
           'La tua lezione non è stata prenotata';
         }
+
+
       } else {
         print("non ci sono dati");
       }
@@ -117,6 +132,10 @@ class FormPrenotaLezioni extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    myCntrlPrenotaLezioni.ColorContainer.value = Colors.transparent;
+    myCntrlPrenotaLezioni.messaggio.value = '';
+
     return Center(
       child: Container(
         padding: const EdgeInsets.all(0.0),
@@ -200,7 +219,8 @@ class FormPrenotaLezioni extends StatelessWidget {
                                       ),
                                       child: Row(
                                           children: const [
-                                            Icon(Icons.add_circle_outlined),
+                                            Icon(Icons.add_circle_outlined,
+                                              color: Color(0xFFFFFFFF),),
                                             Text("PRENOTA",
                                                 style: TextStyle(fontSize: 16, color: Colors.white),
                                                 textAlign: TextAlign.center),
@@ -219,11 +239,18 @@ class FormPrenotaLezioni extends StatelessWidget {
              Padding(
                padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
                child: Container(
-                  color:myCntrlPrenotaLezioni.ColorContainer.value ,
-                  child: Text(
+                 decoration: BoxDecoration(
+                   borderRadius: BorderRadius.circular(20),
+                   color:myCntrlPrenotaLezioni.ColorContainer.value,
+                 ),
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Text(
                   myCntrlPrenotaLezioni.messaggio.value,
-            ),
-            ),),
+                    ),
+                  ),
+                ),
+             ),
             )
           ],
         ),

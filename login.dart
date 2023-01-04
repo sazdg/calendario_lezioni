@@ -131,7 +131,7 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
                 child: TextField(autofocus: true,
                 textAlign: TextAlign.center,
                 controller: controller.nome,
-                  decoration:InputDecoration(
+                  decoration:const InputDecoration(
                   border: OutlineInputBorder(),
                   ),
                 ),
@@ -142,26 +142,41 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
                   child: TextField(autofocus: false,
                     textAlign: TextAlign.center,
                     controller: controller.password,
-                    decoration:InputDecoration(
+                    decoration:const InputDecoration(
                       border: OutlineInputBorder(),
                     ),
                   ),
                 ),
                 const Spacer(),
-                MaterialButton(
-                  onPressed: () =>login() ,
-                  color:Colors.teal,
-                  child: const Text(
-                      "LOGIN"
-                  ),
-                ),
-                const Spacer(),
-                Obx(() => Text(
-                  controller.messaggio.string,
-                  style: TextStyle(
-                    color: controller.coloreMex.value,
+                  MaterialButton(
+                    onPressed: () => login(),
+                    color:Colors.teal,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
                     ),
-                  ),
+                    child: const Text("LOGIN",
+                            style: TextStyle(fontSize: 16, color: Colors.white),
+                            textAlign: TextAlign.center,
+                        ),
+                    ),
+                const Spacer(),
+                Obx(() =>
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: controller.coloreMex.value,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Text(
+                            style: TextStyle(fontSize: 16, color: Colors.white),
+                            controller.messaggio.string,
+                          ),
+                        ),
+                      ),
+                    ),
                 ),
                 const Spacer(),
               ]
@@ -204,7 +219,5 @@ class ControllerDettagliLezione extends GetxController {
   var coloreFeedback = Colors.transparent.obs;
 
 }
-
-
 
 //https://www.color-hex.com/color-palette/595

@@ -52,10 +52,11 @@ class TabellaLezioniPrenotate extends StatelessWidget {
     myCntrlListaLezioni.codLezione.value = cod;
     Get.to(() => DettagliLezione());
   }
+
   @override
   Widget build(BuildContext context) {
 
-    return DataTable(
+    return Obx(() => DataTable(
       columns: const <DataColumn>[
         DataColumn(
           label: Expanded(
@@ -132,18 +133,32 @@ class TabellaLezioniPrenotate extends StatelessWidget {
               DataCell(Text(elemento.Username.toString())),
               DataCell(Text(elemento.InizioLezione)),
               DataCell(Text(elemento.FineLezione)),
-              DataCell(Text("${stato[elemento.Stato]}")), //array per far spuntare lo stato (0=libero, ecc..)
-              DataCell(MaterialButton(
-                onPressed: ()=> vaiADettagliLezione(elemento.IdLezione,elemento.CodLezione),
-                color:Colors.teal,
-                child: const Text(
-                    "Dettagli"
+              DataCell(Text(stato[elemento.Stato])), //array per far spuntare lo stato (0=libero, ecc..)
+              DataCell(Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
+                child: MaterialButton(
+                  onPressed: () => vaiADettagliLezione(elemento.IdLezione,elemento.CodLezione),
+                  color:Colors.teal,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: Row(
+                    children: const [
+                      Icon(Icons.info_sharp,
+                        color: Color(0xFFFFFFFF),
+                      ),
+                      Text("DETTAGLI",
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                          textAlign: TextAlign.center),
+                    ],
                   ),
                 ),
+              ),
               ),
             ],
           ),
         ).toList(),
+      ),
     );
   }
 }

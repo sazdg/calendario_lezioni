@@ -62,6 +62,7 @@ class UserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     myCntrlListaLezioni.listalezioni.value = <Lezione>[];
     getDataListaLezioni();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Homepage di ${controller.nomeUtente}'),

@@ -29,16 +29,12 @@ class DettagliLezionePage extends StatelessWidget {
   final ControllerLogin ctrlLogin = Get.find();
   final ControllerListaLezioni ctrlLezione = Get.find();
 
-  void dettagliLezione() async{
-
-  }
 
   void EffettuaDisdiciLezione(int tipologia) async {
 
-
-
     try {
-      var url = Uri.parse('$SERVER/operazione/${ctrlLezione.idLezione.value}-${ctrlLezione.codLezione.value}/${tipologia.toString()}');
+      var url = Uri.parse('$SERVER/operazione/${ctrlLezione.idLezione.value}+${ctrlLezione.codLezione.value}/${tipologia.toString()}');
+      print(url);
       var response = await http.get(url, headers: {
         "Access-Control-Allow-Origin": "*",
         // Required for CORS support to work
@@ -52,20 +48,28 @@ class DettagliLezionePage extends StatelessWidget {
       var rispJson = json.decode(response.body);
       if (response.statusCode == 200) {
         if (rispJson['ok'] == 'true') {
+
           if(rispJson['stato'] == 'effettuata') {
             controller.coloreFeedback.value = Colors.yellow.shade700;
-            controller.messaggioFeedback.value =
-            'Hai effettuato la tua prenotazione';
+            controller.messaggioFeedback.value = 'Hai frequentato questa lezione}';
           }
           else if(rispJson['stato'] == 'disdetta') {
             controller.coloreFeedback.value = Colors.redAccent;
-            controller.messaggioFeedback.value =
-            'Hai disdetto la tua prenotazione';
+            controller.messaggioFeedback.value = 'Hai disdetto la tua prenotazione';
           }
+
+          ctrlLezione.listalezioni.value = <Lezione>[];
+          UserPage prova = new UserPage();
+          prova.getDataListaLezioni();
+
+        } else {
+          controller.coloreFeedback.value = Colors.redAccent;
+          controller.messaggioFeedback.value = 'Errore, riprova più tardi';
         }
 
       } else {
-        print("non ci sono dati");
+        controller.coloreFeedback.value = Colors.redAccent;
+        controller.messaggioFeedback.value = 'Errore...';
       }
     } catch (e) {
       print(e);
@@ -73,7 +77,10 @@ class DettagliLezionePage extends StatelessWidget {
   }
 
   Widget build(BuildContext context) {
-    print(ctrlLezione.idLezione);
+
+    controller.coloreFeedback.value = Colors.transparent;
+    controller.messaggioFeedback.value = '';
+
     return Scaffold(
         appBar: AppBar(
           title: Text('Dettagli Lezione di ${ctrlLogin.nomeUtente.value} '),
@@ -89,11 +96,10 @@ class DettagliLezionePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                    padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
                     child: MaterialButton(
                       onPressed: () {
                         EffettuaDisdiciLezione(2);
-                        print('');
                       },
                       color:Colors.yellow.shade700,
                       shape: RoundedRectangleBorder(
@@ -112,7 +118,7 @@ class DettagliLezionePage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                    padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
                     child: MaterialButton(
                       onPressed: () {
                         EffettuaDisdiciLezione(3);
@@ -140,12 +146,20 @@ class DettagliLezionePage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
                     child: Container(
-                      color:controller.coloreFeedback.value ,
-                      child: Text(
-                        controller.messaggioFeedback.value,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color:controller.coloreFeedback.value ,
                       ),
-                    ),),
-              )
+                      child: Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          controller.messaggioFeedback.value,
+                        ),
+                      ),
+                    ),
+                  ),
+              ),
+              const Spacer(),
             ],
           ),
         ),
