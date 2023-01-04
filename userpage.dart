@@ -47,7 +47,7 @@ class UserPage extends StatelessWidget {
             myCntrlListaLezioni.listalezioni.add(
                 Lezione(riga['id_lezione'], riga['id_insegnante'], riga['insegnante'], riga['materia'],
                     riga['id_studente'], riga['username'], riga['inizio_lezione'],
-                    riga['fine_lezione'], riga['stato'])
+                    riga['fine_lezione'], riga['stato'], riga['cod_lezione'])
             );
           }
         }

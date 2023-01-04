@@ -47,8 +47,9 @@ class TabellaLezioniPrenotate extends StatelessWidget {
 
   final ControllerListaLezioni myCntrlListaLezioni = Get.find();
 
-  void vaiADettagliLezione(int id){
+  void vaiADettagliLezione(int id, int cod){
     myCntrlListaLezioni.idLezione.value = id;
+    myCntrlListaLezioni.codLezione.value = cod;
     Get.to(() => DettagliLezione());
   }
   @override
@@ -76,14 +77,6 @@ class TabellaLezioniPrenotate extends StatelessWidget {
           label: Expanded(
             child: Text(
               'Materia',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-          ),
-        ),
-        DataColumn(
-          label: Expanded(
-            child: Text(
-              'Matricola',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
@@ -136,13 +129,12 @@ class TabellaLezioniPrenotate extends StatelessWidget {
               DataCell(Text(elemento.IdLezione.toString())),
               DataCell(Text(elemento.Insegnante.toString())),
               DataCell(Text(elemento.Materia.toString())),
-              DataCell(Text(elemento.IdStudente.toString())),
               DataCell(Text(elemento.Username.toString())),
               DataCell(Text(elemento.InizioLezione)),
               DataCell(Text(elemento.FineLezione)),
-              DataCell(Text(elemento.Stato.toString())),
+              DataCell(Text("${stato[elemento.Stato]}")), //array per far spuntare lo stato (0=libero, ecc..)
               DataCell(MaterialButton(
-                onPressed: ()=> vaiADettagliLezione(elemento.IdLezione),
+                onPressed: ()=> vaiADettagliLezione(elemento.IdLezione,elemento.CodLezione),
                 color:Colors.teal,
                 child: const Text(
                     "Dettagli"

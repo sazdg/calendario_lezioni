@@ -33,10 +33,12 @@ class DettagliLezionePage extends StatelessWidget {
 
   }
 
-  void effettuaLezione() async {
+  void EffettuaDisdiciLezione(int tipologia) async {
+
+
 
     try {
-      var url = Uri.parse('$SERVER/effettuata/${ctrlLezione.idLezione.value}');
+      var url = Uri.parse('$SERVER/operazione/${ctrlLezione.idLezione.value}-${ctrlLezione.codLezione.value}/${tipologia.toString()}');
       var response = await http.get(url, headers: {
         "Access-Control-Allow-Origin": "*",
         // Required for CORS support to work
@@ -50,8 +52,18 @@ class DettagliLezionePage extends StatelessWidget {
       var rispJson = json.decode(response.body);
       if (response.statusCode == 200) {
         if (rispJson['ok'] == 'true') {
-
+          if(rispJson['stato'] == 'effettuata') {
+            controller.coloreFeedback.value = Colors.yellow.shade700;
+            controller.messaggioFeedback.value =
+            'Hai effettuato la tua prenotazione';
+          }
+          else if(rispJson['stato'] == 'disdetta') {
+            controller.coloreFeedback.value = Colors.redAccent;
+            controller.messaggioFeedback.value =
+            'Hai disdetto la tua prenotazione';
+          }
         }
+
       } else {
         print("non ci sono dati");
       }
@@ -80,6 +92,7 @@ class DettagliLezionePage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
                     child: MaterialButton(
                       onPressed: () {
+                        EffettuaDisdiciLezione(2);
                         print('');
                       },
                       color:Colors.yellow.shade700,
@@ -102,7 +115,7 @@ class DettagliLezionePage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
                     child: MaterialButton(
                       onPressed: () {
-                        effettuaLezione();
+                        EffettuaDisdiciLezione(3);
                       },
                       color:Colors.redAccent,
                       shape: RoundedRectangleBorder(
@@ -123,6 +136,16 @@ class DettagliLezionePage extends StatelessWidget {
                 ],
               ),
               const Spacer(),
+              Obx(() =>
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    child: Container(
+                      color:controller.coloreFeedback.value ,
+                      child: Text(
+                        controller.messaggioFeedback.value,
+                      ),
+                    ),),
+              )
             ],
           ),
         ),
@@ -130,16 +153,3 @@ class DettagliLezionePage extends StatelessWidget {
   }
 }
 
-class ControllerDettagliLezione extends GetxController {
-  var idLezione = 0.obs;
-  var idInsegnante = 0.obs;
-  var idStudente = 0.obs;
-  var inizioLezione = ''.obs;
-  var fineLezione = ''.obs;
-  var note = ''.obs;
-  var stato = 0.obs;
-
-  var messaggioFeedback = ''.obs;
-  var coloreFeedback = ''.obs;
-
-}

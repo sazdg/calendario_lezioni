@@ -14,9 +14,10 @@ class Lezione {
   late String InizioLezione;
   late String FineLezione;
   late int Stato;
+  late int CodLezione;
 
   Lezione(int idlezione, int idinsegnante, String insegnante, String materia, int idstudente, String username, String iniziolezione,
-      String finelezione, int stato) {
+      String finelezione, int stato, int codlezione) {
     IdLezione = idlezione;
     IdInsegnante = idinsegnante;
     Insegnante = insegnante;
@@ -26,6 +27,7 @@ class Lezione {
     InizioLezione = iniziolezione;
     FineLezione = finelezione;
     Stato = stato;
+    CodLezione = codlezione;
   }
 }
 
@@ -68,3 +70,4 @@ class Prenota {
 }
 
 final List<String> giorno = ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"];
+final List<String> stato = ["Libero", "Prenotato", "Effettuata", "Disdetta"];

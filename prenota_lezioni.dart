@@ -89,12 +89,12 @@ class FormPrenotaLezioni extends StatelessWidget {
       if (response.statusCode == 200) {
         print("Prenotato oppure no");
         if (rispJson['ok'] == 'true') {
-          myCntrlPrenotaLezioni.ColorContainer = Colors.lightGreenAccent as Rx<Color>;
+          myCntrlPrenotaLezioni.ColorContainer.value = Colors.lightGreenAccent;
           myCntrlPrenotaLezioni.messaggio.value =
           'La tua lezione è stata prenotata con successo';
         }
         else {
-          myCntrlPrenotaLezioni.ColorContainer = Colors.redAccent as Rx<Color>;
+          myCntrlPrenotaLezioni.ColorContainer.value = Colors.redAccent;
           myCntrlPrenotaLezioni.messaggio.value =
           'La tua lezione non è stata prenotata';
         }
@@ -192,6 +192,7 @@ class FormPrenotaLezioni extends StatelessWidget {
                                     child: MaterialButton(
                                       onPressed: () {
                                         prenotaLezione(lezione);
+
                                       },
                                       color:Colors.deepPurpleAccent,
                                       shape: RoundedRectangleBorder(
@@ -220,7 +221,7 @@ class FormPrenotaLezioni extends StatelessWidget {
                child: Container(
                   color:myCntrlPrenotaLezioni.ColorContainer.value ,
                   child: Text(
-                  myCntrlPrenotaLezioni.messaggio.string,
+                  myCntrlPrenotaLezioni.messaggio.value,
             ),
             ),),
             )

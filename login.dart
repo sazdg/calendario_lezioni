@@ -187,6 +187,22 @@ class ControllerListaLezioni extends GetxController {
   var messaggio = ''.obs;
   var ColorContainer = Colors.transparent.obs;
   var idLezione = 0.obs;
+  var codLezione = 0.obs;
+}
+
+class ControllerDettagliLezione extends GetxController {
+  var idLezione = 0.obs;
+  var codLezione = 0.obs;
+  var idInsegnante = 0.obs;
+  var idStudente = 0.obs;
+  var inizioLezione = ''.obs;
+  var fineLezione = ''.obs;
+  var note = ''.obs;
+  var stato = 0.obs;
+
+  var messaggioFeedback = ''.obs;
+  var coloreFeedback = Colors.transparent.obs;
+
 }
 
 
