@@ -38,10 +38,11 @@ class Prenota {
   late String InizioLezione;
   late String FineLezione;
   late int Stato;
+  late int CodLezione;
   final ControllerLogin controller = Get.find();
 
   Prenota(int idgiorno, int idinsegnante, String insegnante, String materia, String iniziolezione,
-      String finelezione, int stato) {
+      String finelezione, int stato, int codlezione) {
     IdGiorno = idgiorno;
     IdInsegnante = idinsegnante;
     Insegnante = insegnante;
@@ -49,6 +50,7 @@ class Prenota {
     InizioLezione = iniziolezione;
     FineLezione = finelezione;
     Stato = stato;
+    CodLezione = codlezione;
   }
 
   Map<String, dynamic> toJson() => {
@@ -60,6 +62,7 @@ class Prenota {
     'fine_lezione' : FineLezione,
     'stato' : Stato,
     'id_studente' : controller.idUtente.value,
+    'cod_lezione' : CodLezione
   };
 
 }

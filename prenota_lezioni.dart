@@ -57,9 +57,7 @@ class FormPrenotaLezioni extends StatelessWidget {
             var riga = rispJson['data'][i];
 
             myCntrlPrenotaLezioni.listadataorario.add(
-                Prenota(riga['id_giorno'], riga['id_insegnante'], riga['insegnante'], riga['materia'],
-                    riga['inizio_lezione'],
-                    riga['fine_lezione'], riga['stato'])
+                Prenota(riga['id_giorno'], riga['id_insegnante'], riga['insegnante'], riga['materia'], riga['inizio_lezione'], riga['fine_lezione'], riga['stato'], riga['cod_lezione'])
             );
           }
         }
@@ -181,20 +179,19 @@ class FormPrenotaLezioni extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: myCntrlPrenotaLezioni.listadataorario.value
                         .map(
-                          (e) =>  Container(
+                          (lezione) =>  Container(
                           child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("${giorno[e.IdGiorno]} dalle ${e.InizioLezione} alle ${e.FineLezione}, Professore ${e.Insegnante}"),
+                                  Text("${giorno[lezione.IdGiorno]} dalle ${lezione.InizioLezione} alle ${lezione.FineLezione}, Professore ${lezione.Insegnante}"),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
                                     child: MaterialButton(
                                       onPressed: () {
-                                        prenotaLezione(e);
-                                        print(e.IdGiorno);
+                                        prenotaLezione(lezione);
                                       },
                                       color:Colors.deepPurpleAccent,
                                       shape: RoundedRectangleBorder(

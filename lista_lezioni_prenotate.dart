@@ -47,6 +47,10 @@ class TabellaLezioniPrenotate extends StatelessWidget {
 
   final ControllerListaLezioni myCntrlListaLezioni = Get.find();
 
+  void vaiADettagliLezione(int id){
+    myCntrlListaLezioni.idLezione.value = id;
+    Get.to(() => DettagliLezione());
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -138,7 +142,7 @@ class TabellaLezioniPrenotate extends StatelessWidget {
               DataCell(Text(elemento.FineLezione)),
               DataCell(Text(elemento.Stato.toString())),
               DataCell(MaterialButton(
-                onPressed: ()=> Get.to(() => DettagliLezione()),
+                onPressed: ()=> vaiADettagliLezione(elemento.IdLezione),
                 color:Colors.teal,
                 child: const Text(
                     "Dettagli"

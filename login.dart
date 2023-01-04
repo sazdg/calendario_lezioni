@@ -186,9 +186,7 @@ class ControllerListaLezioni extends GetxController {
   final listadataorario = <Prenota>[].obs;
   var messaggio = ''.obs;
   var ColorContainer = Colors.transparent.obs;
-
-
-
+  var idLezione = 0.obs;
 }
 
 

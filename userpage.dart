@@ -27,7 +27,7 @@ class UserPage extends StatelessWidget {
 
   void getDataListaLezioni() async {
     try {
-      var url = Uri.parse('$SERVER/get-lezioni');
+      var url = Uri.parse('$SERVER/get-lezioni/${controller.idUtente.value}');
       var response = await http.get(url, headers: {
         "Access-Control-Allow-Origin": "*",
         // Required for CORS support to work
