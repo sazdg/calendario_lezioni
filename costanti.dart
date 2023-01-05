@@ -70,4 +70,4 @@ class Prenota {
 }
 
 final List<String> giorno = ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"];
-final List<String> stato = ["Libero", "Prenotato", "Effettuata", "Disdetta"];
+final List<String> stato = ["Libera", "Prenotata", "Effettuata", "Disdetta"];

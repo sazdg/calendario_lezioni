@@ -51,11 +51,13 @@ class DettagliLezionePage extends StatelessWidget {
 
           if(rispJson['stato'] == 'effettuata') {
             controller.coloreFeedback.value = Colors.yellow.shade700;
-            controller.messaggioFeedback.value = 'Hai frequentato questa lezione}';
+            controller.messaggioFeedback.value = 'Hai frequentato questa lezione';
+            controller.bottoneDisabilitato.value = true;
           }
           else if(rispJson['stato'] == 'disdetta') {
             controller.coloreFeedback.value = Colors.redAccent;
             controller.messaggioFeedback.value = 'Hai disdetto la tua prenotazione';
+            controller.bottoneDisabilitato.value = true;
           }
 
           ctrlLezione.listalezioni.value = <Lezione>[];
@@ -80,10 +82,11 @@ class DettagliLezionePage extends StatelessWidget {
 
     controller.coloreFeedback.value = Colors.transparent;
     controller.messaggioFeedback.value = '';
+    controller.bottoneDisabilitato.value = false;
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Dettagli Lezione di ${ctrlLogin.nomeUtente.value} '),
+          title: Text('Dettagli Lezione di ${ctrlLogin.nomeUtente.value}'),
         ) ,
         body: Center(
           child: Column(
@@ -99,7 +102,13 @@ class DettagliLezionePage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
                     child: MaterialButton(
                       onPressed: () {
-                        EffettuaDisdiciLezione(2);
+                        if(controller.bottoneDisabilitato.value){
+                          controller.coloreFeedback.value = Colors.grey;
+                          controller.messaggioFeedback.value = 'Attenzione, non puoi più modificare lo stato della lezione';
+                        } else {
+                          EffettuaDisdiciLezione(2);
+                        }
+
                       },
                       color:Colors.yellow.shade700,
                       shape: RoundedRectangleBorder(
@@ -121,7 +130,12 @@ class DettagliLezionePage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
                     child: MaterialButton(
                       onPressed: () {
-                        EffettuaDisdiciLezione(3);
+                        if(controller.bottoneDisabilitato.value){
+                          controller.coloreFeedback.value = Colors.grey;
+                          controller.messaggioFeedback.value = 'Attenzione, non puoi più modificare lo stato della lezione';
+                        } else {
+                          EffettuaDisdiciLezione(3);
+                        }
                       },
                       color:Colors.redAccent,
                       shape: RoundedRectangleBorder(
@@ -153,6 +167,7 @@ class DettagliLezionePage extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.all(10),
                         child: Text(
+                          style: TextStyle(fontSize: 16, color: Colors.white),
                           controller.messaggioFeedback.value,
                         ),
                       ),

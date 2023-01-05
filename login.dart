@@ -217,6 +217,7 @@ class ControllerDettagliLezione extends GetxController {
 
   var messaggioFeedback = ''.obs;
   var coloreFeedback = Colors.transparent.obs;
+  var bottoneDisabilitato = false.obs;
 
 }
 

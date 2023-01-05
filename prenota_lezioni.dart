@@ -163,7 +163,15 @@ class FormPrenotaLezioni extends StatelessWidget {
                   'Italiano',
                   'Matematica',
                   'Flutter',
-                  'Calcolo numerico',
+                  'Storia',
+                  'Informatica',
+                  'Inglese',
+                  'Elettronica',
+                  'Diritto',
+                  'Filosofia',
+                  'Economia',
+                  'Sociologia',
+                  'Metodologia'
                 ].map<DropdownMenuItem<String>>((String materia) {
                   return DropdownMenuItem<String>(
                     value: materia,
