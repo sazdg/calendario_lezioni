@@ -65,6 +65,7 @@ class UserPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blueAccent,
         title: Text('Homepage di ${controller.nomeUtente}'),
       ) ,
       body: Center(
@@ -77,15 +78,16 @@ class UserPage extends StatelessWidget {
               ConstrainedBox(
                 constraints: BoxConstraints.expand(height: 50, width: 200),
                 child: MaterialButton(
-                  padding: EdgeInsets.all(10.00),
                   onPressed: () => Get.toNamed('/lezioni-prenotate'),
-                  color: RandomColorModel().getColor(),
+                  color:Colors.orangeAccent,    // RandomColorModel().getColor(),
                   child: Column(
                       children: const [
+                        Spacer(),
                         Icon(Icons.view_list_outlined),
                         Text("Lista lezioni prenotate",
-                            style: TextStyle(fontSize: 22, color: Colors.black),
+                            style: TextStyle(fontSize: 23, color: Colors.black),
                             textAlign: TextAlign.center),
+                        Spacer(),
                       ]
                   ),
                 ),
@@ -94,13 +96,15 @@ class UserPage extends StatelessWidget {
                 constraints: BoxConstraints.expand(height: 50, width: 200),
                 child: MaterialButton(
                   onPressed: () => Get.toNamed('/prenota'),
-                  color: RandomColorModel().getColor(),
+                  color:Colors.lightGreenAccent ,   //RandomColorModel().getColor(),
                   child: Column(
                       children: const [
+                        Spacer(),
                         Icon(Icons.add_box_rounded),
                         Text("Prenota le lezioni",
-                            style: TextStyle(fontSize: 22, color: Colors.black),
+                            style: TextStyle(fontSize: 23, color: Colors.black),
                             textAlign: TextAlign.center),
+                        Spacer(),
                       ]
                   ),
                 ),
@@ -109,13 +113,15 @@ class UserPage extends StatelessWidget {
                 constraints: BoxConstraints.expand(height: 50, width: 200),
                 child: MaterialButton(
                   onPressed: () => logout() ,
-                  color: RandomColorModel().getColor(),
+                  color: Colors.redAccent,        // RandomColorModel().getColor(),
                   child: Column(
                       children: const [
+                        Spacer(),
                         Icon(Icons.logout_rounded),
                         Text("Logout",
-                            style: TextStyle(fontSize: 22, color: Colors.black),
+                            style: TextStyle(fontSize: 23, color: Colors.black),
                             textAlign: TextAlign.center),
+                        Spacer(),
                       ]
                   ),
                 ),
@@ -129,10 +135,10 @@ class UserPage extends StatelessWidget {
 }
 
 
-class RandomColorModel {
+/*class RandomColorModel {
   Random random = Random();
   Color getColor() {
     return Color.fromARGB(random.nextInt(300), random.nextInt(300),
         random.nextInt(300), random.nextInt(300));
   }
-}
+}*/

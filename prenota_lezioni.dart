@@ -22,7 +22,9 @@ class PrenotaLezioni extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('${controller.nomeUtente} prenota una lezione'),
+        backgroundColor: Colors.lightGreenAccent,
+        title: Text('${controller.nomeUtente} prenota una lezione',
+        style: TextStyle(color: Colors.black)),
       ),
       body: Center(
         child: FormPrenotaLezioni(),
@@ -152,7 +154,7 @@ class FormPrenotaLezioni extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
                 border: Border.all(
-                    color: Colors.teal, style: BorderStyle.solid, width: 2.0),
+                    color: Colors.lightGreenAccent, style: BorderStyle.solid, width: 2.0),
               ),
               child: Obx(() => DropdownButton<String>(
                 value: myCntrlPrenotaLezioni.SceltaMateriaDropDown.value,
@@ -221,16 +223,16 @@ class FormPrenotaLezioni extends StatelessWidget {
                                         prenotaLezione(lezione);
 
                                       },
-                                      color:Colors.deepPurpleAccent,
+                                      color:Colors.lightGreenAccent,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(30.0),
                                       ),
                                       child: Row(
                                           children: const [
                                             Icon(Icons.add_circle_outlined,
-                                              color: Color(0xFFFFFFFF),),
+                                              color: Color(0xFF000000),),
                                             Text("PRENOTA",
-                                                style: TextStyle(fontSize: 16, color: Colors.white),
+                                                style: TextStyle(fontSize: 16, color: Colors.black),
                                                 textAlign: TextAlign.center),
                                           ],
                                       ),

@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'CALENDARIO LEZIONI',
           theme: ThemeData(
-            primarySwatch: Colors.teal,
+            primarySwatch: Colors.blue,
           ),
           home:Login(),
           getPages: funzioneRouting(), //QUELLA FATTA CON GETPAGES
@@ -69,7 +69,7 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
       if (await checkLogin(controller.nome.text, controller.password.text)){
         //vai alla pagina userPage
         controller.messaggio.value ='Credenziali corrette, verrai reindirizzato alla tua pagina' ;
-        controller.coloreMex.value = Colors.green;
+        controller.coloreMex.value = Colors.lightGreenAccent;
         controller.nomeUtente.value = controller.nome.text;
         Timer(const Duration(seconds: 2), ()=> Get.off(() => UserPage()));
 
@@ -120,6 +120,7 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
     return Scaffold(
         appBar: AppBar(
           title: const Text('Login Page'),
+          backgroundColor: Colors.blue,
         ) ,
         body: Center(
           child: Column(
@@ -150,12 +151,12 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
                 const Spacer(),
                   MaterialButton(
                     onPressed: () => login(),
-                    color:Colors.teal,
+                    color:Colors.blue,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                     child: const Text("LOGIN",
-                            style: TextStyle(fontSize: 16, color: Colors.white),
+                            style: TextStyle(fontSize: 16, color: Colors.black),
                             textAlign: TextAlign.center,
                         ),
                     ),
@@ -171,7 +172,7 @@ class LoginPage extends StatelessWidget {//pagina utente non autenticato, quindi
                         child: Padding(
                           padding: const EdgeInsets.all(10),
                           child: Text(
-                            style: TextStyle(fontSize: 16, color: Colors.white),
+                            style: TextStyle(fontSize: 16, color: Colors.black),
                             controller.messaggio.string,
                           ),
                         ),
@@ -212,12 +213,17 @@ class ControllerDettagliLezione extends GetxController {
   var idStudente = 0.obs;
   var inizioLezione = ''.obs;
   var fineLezione = ''.obs;
+  var materia = ''.obs;
+  var insegnante = ''.obs;
   var note = ''.obs;
   var stato = 0.obs;
+  var orarioInserimento = ''.obs;
 
   var messaggioFeedback = ''.obs;
   var coloreFeedback = Colors.transparent.obs;
   var bottoneDisabilitato = false.obs;
+  var coloreBottoneEffettuato = Colors.yellow.obs;
+  var coloreBottoneDisdetto = Colors.red.obs;
 
 }
 

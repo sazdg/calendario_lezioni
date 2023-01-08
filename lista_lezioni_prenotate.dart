@@ -23,6 +23,7 @@ class ListaLezioniPrenotate extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset : false,
       appBar: AppBar(
+        backgroundColor: Colors.orangeAccent,
         title: Text('Lista lezioni prenotate di ${controller.nomeUtente}'),
       ),
       body:  Center(
@@ -46,7 +47,45 @@ class TabellaLezioniPrenotate extends StatelessWidget {
   TabellaLezioniPrenotate({super.key});
 
   final ControllerListaLezioni myCntrlListaLezioni = Get.find();
+  final ControllerDettagliLezione myCntrlMostraLezione = Get.find();
 
+  void MostraDettagliLezione(int id, int cod) async {
+    try {
+      var url = Uri.parse('$SERVER/DettagliLezione/${id}');
+     // print(url);
+      var response = await http.get(url, headers: {
+        "Access-Control-Allow-Origin": "*",
+        // Required for CORS support to work
+        "Access-Control-Allow-Credentials": 'false',
+        // Required for cookies, authorization headers with HTTPS
+        "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+        "Access-Control-Allow-Methods": "*",
+        'Content-Type': 'application/json',
+      });
+
+      var rispJson = json.decode(response.body);
+      if (rispJson['ok'] == 'true') {
+        myCntrlMostraLezione.idLezione.value = rispJson['data'][0]['id_lezione'];
+        myCntrlMostraLezione.codLezione.value = rispJson['data'][0]['cod_lezione'];
+        myCntrlMostraLezione.idInsegnante.value = rispJson['data'][0]['id_insegnante'];
+        myCntrlMostraLezione.inizioLezione.value = rispJson['data'][0]['inizio_lezione'];
+        myCntrlMostraLezione.fineLezione.value = rispJson['data'][0]['fine_lezione'];
+        myCntrlMostraLezione.stato.value = rispJson['data'][0]['stato'];
+        myCntrlMostraLezione.materia.value = rispJson['data'][0]['materia'];
+        myCntrlMostraLezione.insegnante.value = rispJson['data'][0]['insegnante'];
+        myCntrlMostraLezione.orarioInserimento.value = rispJson['data'][0]['orario_inserimento'];
+        vaiADettagliLezione(myCntrlMostraLezione.idLezione.value,myCntrlMostraLezione.codLezione.value);
+
+
+      }else {
+        myCntrlMostraLezione.coloreFeedback.value = Colors.redAccent;
+        myCntrlMostraLezione.messaggioFeedback.value = 'Ops...qualcosa è andato storto';
+      }
+
+    } catch (e) {
+      print(e);
+    }
+  }
   void vaiADettagliLezione(int id, int cod){
     myCntrlListaLezioni.idLezione.value = id;
     myCntrlListaLezioni.codLezione.value = cod;
@@ -55,8 +94,13 @@ class TabellaLezioniPrenotate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return Obx(() => DataTable(
+    return Obx(() => Scrollbar(
+      isAlwaysShown: true,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+        child: DataTable(
       columns: const <DataColumn>[
         DataColumn(
           label: Expanded(
@@ -137,18 +181,19 @@ class TabellaLezioniPrenotate extends StatelessWidget {
               DataCell(Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
                 child: MaterialButton(
-                  onPressed: () => vaiADettagliLezione(elemento.IdLezione,elemento.CodLezione),
-                  color:Colors.teal,
+                  onPressed: () =>{
+                    MostraDettagliLezione(elemento.IdLezione, elemento.CodLezione),},
+                  color:Colors.orangeAccent,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                   child: Row(
                     children: const [
                       Icon(Icons.info_sharp,
-                        color: Color(0xFFFFFFFF),
+                        color: Color(0xFF000000),
                       ),
                       Text("DETTAGLI",
-                          style: TextStyle(fontSize: 16, color: Colors.white),
+                          style: TextStyle(fontSize: 16, color: Colors.black),
                           textAlign: TextAlign.center),
                     ],
                   ),
@@ -159,7 +204,11 @@ class TabellaLezioniPrenotate extends StatelessWidget {
           ),
         ).toList(),
       ),
+      ),
+      ),
+    ),
     );
+
   }
 }
 
