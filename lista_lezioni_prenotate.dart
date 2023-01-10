@@ -1,11 +1,6 @@
 import 'dart:convert';
-import 'dart:math';
-import 'dart:async';
 import 'dart:core';
-import 'dart:io';
 import 'package:calendario_lezioni/login.dart';
-import 'package:calendario_lezioni/prenota_lezioni.dart';
-import 'package:calendario_lezioni/route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -30,9 +25,11 @@ class ListaLezioniPrenotate extends StatelessWidget {
         child: Column(
             children:<Widget>[
               Expanded(
-                child:TabellaLezioniPrenotate(),
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(0, 10, 0, 20),
+                  child: TabellaLezioniPrenotate(),
+                ),
               ),
-              Spacer(),
             ]
         ),
       ),

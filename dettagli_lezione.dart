@@ -1,14 +1,10 @@
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:calendario_lezioni/login.dart';
 import 'package:calendario_lezioni/userpage.dart';
-import 'package:calendario_lezioni/route.dart';
-import 'package:calendario_lezioni/lista_lezioni_prenotate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:sizer/sizer.dart';
 
 import 'costanti.dart';
 
@@ -64,8 +60,8 @@ class DettagliLezionePage extends StatelessWidget {
           controller.coloreBottoneDisdetto.value = Colors.grey ;
           controller.bottoneDisabilitato.value = true;
           ctrlLezione.listalezioni.value = <Lezione>[];
-          UserPage prova = new UserPage();
-          prova.getDataListaLezioni();
+          UserPage prova = new UserPage(); //istanza della classe userpage
+          prova.getDataListaLezioni(); //chiama la funzione per inserire lista lezioni con i dati aggiornati
 
         } else {
           controller.coloreFeedback.value = Colors.redAccent;
@@ -113,7 +109,7 @@ class DettagliLezionePage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),),
               const Spacer(),
-              Text('Insegnante: ${controller.idInsegnante.value}'),
+              Text('Insegnante: ${controller.insegnante.value}'),
               const Spacer(),
               Text('Inizio Lezione: ${controller.inizioLezione.value}'),
               const Spacer(),

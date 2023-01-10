@@ -3,8 +3,6 @@ import 'dart:convert';
 
 import 'package:calendario_lezioni/userpage.dart';
 import 'package:calendario_lezioni/route.dart';
-import 'package:calendario_lezioni/dettagli_lezione.dart';
-import 'package:calendario_lezioni/lista_lezioni_prenotate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -193,7 +191,7 @@ class ControllerLogin extends GetxController{
   var password = TextEditingController();
   var messaggio = ''.obs;
   var coloreMex = Colors.transparent.obs;
-  var nomeUtente = "Ciao".obs;
+  var nomeUtente = "".obs;
 }
 
 class ControllerListaLezioni extends GetxController {
@@ -226,5 +224,3 @@ class ControllerDettagliLezione extends GetxController {
   var coloreBottoneDisdetto = Colors.red.obs;
 
 }
-
-//https://www.color-hex.com/color-palette/595

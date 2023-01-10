@@ -1,9 +1,7 @@
-import 'dart:math';
 import 'dart:convert';
 
 import 'package:calendario_lezioni/login.dart';
 import 'package:calendario_lezioni/userpage.dart';
-import 'package:calendario_lezioni/route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -42,7 +40,7 @@ class FormPrenotaLezioni extends StatelessWidget {
     myCntrlPrenotaLezioni.listadataorario.value = <Prenota>[];
     try {
       var url = Uri.parse('$SERVER/lezione/${myCntrlPrenotaLezioni.SceltaMateriaDropDown.value}');
-      print(url);
+
       var response = await http.get(url, headers: {
         "Access-Control-Allow-Origin": "*",
         // Required for CORS support to work
@@ -70,6 +68,13 @@ class FormPrenotaLezioni extends StatelessWidget {
     } catch (e) {
       print(e);
     }
+  }
+
+  void prenotaLezione(Prenota scelta){
+
+    Map<String, dynamic> prenotaInJson= scelta.toJson(); //crea la stringa json dei dati
+    inviaDatiPrenotazione(prenotaInJson); //invia la stringa
+
   }
 
   Future<void> inviaDatiPrenotazione(Map<String, dynamic>  jsonDati) async {
@@ -103,15 +108,15 @@ class FormPrenotaLezioni extends StatelessWidget {
           myCntrlPrenotaLezioni.listalezioni.value = <Lezione>[];
           UserPage prova = new UserPage();
           prova.getDataListaLezioni();
-          //toglie la lista lezioni da prenotare
+
+          //toglie la scelta materia e svuota lista del dropdown
           myCntrlPrenotaLezioni.SceltaMateriaDropDown.value = '';
           myCntrlPrenotaLezioni.listadataorario.value = <Prenota>[];
 
         }
         else {
           myCntrlPrenotaLezioni.ColorContainer.value = Colors.redAccent;
-          myCntrlPrenotaLezioni.messaggio.value =
-          'La tua lezione non è stata prenotata';
+          myCntrlPrenotaLezioni.messaggio.value ='La tua lezione non è stata prenotata';
         }
 
 
@@ -123,13 +128,6 @@ class FormPrenotaLezioni extends StatelessWidget {
     }
   }
 
-  void prenotaLezione(Prenota scelta){
-
-    Map<String, dynamic> prenotaInJson= scelta.toJson();
-    print(prenotaInJson);
-    inviaDatiPrenotazione(prenotaInJson);
-
-  }
 
 
   @override
