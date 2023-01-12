@@ -103,22 +103,43 @@ class DettagliLezionePage extends StatelessWidget {
         body: Center(
           child: Column(
             children: <Widget>[
-              const Spacer(),
-              Text('ID lezione: ${controller.idLezione.value}',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),),
-              const Spacer(),
-              Text('Insegnante: ${controller.insegnante.value}'),
-              const Spacer(),
-              Text('Inizio Lezione: ${controller.inizioLezione.value}'),
-              const Spacer(),
-              Text('Fine Lezione: ${controller.fineLezione.value}'),
-              const Spacer(),
-              Text('Hai fatto la prenotazione il giorno: ${controller.orarioInserimento.value}'),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 0.0),
+                      child: Text('ID lezione: ${controller.idLezione.value}',),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 0.0),
+                      child: Text('Insegnante: ${controller.insegnante.value}'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 0.0),
+                      child: Text('Inizio Lezione: ${controller.inizioLezione.value}'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 0.0),
+                      child: Text('Fine Lezione: ${controller.fineLezione.value}'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 0.0),
+                      child: Text('Hai prenotato questa lezione il giorno: ${controller.orarioInserimento.value}'),
+                    ),
+                  ],
+                ),
+              ),
               const Padding(
-                padding: EdgeInsets.fromLTRB(0, 30, 0, 40),
-                child: Text('Scegli se effettuare o disdire la lezione'),
+                padding: EdgeInsets.fromLTRB(0, 15, 0, 40),
+                child: Text('Scegli se effettuare o disdire la lezione',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -182,17 +203,16 @@ class DettagliLezionePage extends StatelessWidget {
                   ),
                 ],
               ),
-              const Spacer(),
               Obx(() =>
                   Padding(
-                    padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color:controller.coloreFeedback.value ,
                       ),
                       child: Padding(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: Text(
                           style: TextStyle(fontSize: 16, color: Colors.black),
                           controller.messaggioFeedback.value,

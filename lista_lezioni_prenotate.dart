@@ -103,7 +103,7 @@ class TabellaLezioniPrenotate extends StatelessWidget {
           label: Expanded(
             child: Text(
               'N Lezione',
-              style: TextStyle(fontStyle: FontStyle.italic),
+              style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold,),
             ),
           ),
         ),
@@ -111,7 +111,7 @@ class TabellaLezioniPrenotate extends StatelessWidget {
           label: Expanded(
             child: Text(
               'Insegnante',
-              style: TextStyle(fontStyle: FontStyle.italic),
+              style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold,),
             ),
           ),
         ),
@@ -119,7 +119,7 @@ class TabellaLezioniPrenotate extends StatelessWidget {
           label: Expanded(
             child: Text(
               'Materia',
-              style: TextStyle(fontStyle: FontStyle.italic),
+              style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold,),
             ),
           ),
         ),
@@ -127,7 +127,7 @@ class TabellaLezioniPrenotate extends StatelessWidget {
           label: Expanded(
             child: Text(
               'Studente',
-              style: TextStyle(fontStyle: FontStyle.italic),
+              style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold,),
             ),
           ),
         ),
@@ -135,7 +135,7 @@ class TabellaLezioniPrenotate extends StatelessWidget {
           label: Expanded(
             child: Text(
               'Inizio lezione',
-              style: TextStyle(fontStyle: FontStyle.italic),
+              style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold,),
             ),
           ),
         ),
@@ -143,7 +143,7 @@ class TabellaLezioniPrenotate extends StatelessWidget {
           label: Expanded(
             child: Text(
               'Fine lezione',
-              style: TextStyle(fontStyle: FontStyle.italic),
+              style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold,),
             ),
           ),
         ),
@@ -151,7 +151,7 @@ class TabellaLezioniPrenotate extends StatelessWidget {
           label: Expanded(
             child: Text(
               'Stato',
-              style: TextStyle(fontStyle: FontStyle.italic),
+              style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold,),
             ),
           ),
         ),
@@ -159,7 +159,7 @@ class TabellaLezioniPrenotate extends StatelessWidget {
           label: Expanded(
             child: Text(
               'Azioni',
-              style: TextStyle(fontStyle: FontStyle.italic),
+              style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold,),
             ),
           ),
         ),
@@ -190,8 +190,12 @@ class TabellaLezioniPrenotate extends StatelessWidget {
                         color: Color(0xFF000000),
                       ),
                       Text("DETTAGLI",
-                          style: TextStyle(fontSize: 16, color: Colors.black),
-                          textAlign: TextAlign.center),
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                          ),
+                          textAlign: TextAlign.center,
+                      ),
                     ],
                   ),
                 ),

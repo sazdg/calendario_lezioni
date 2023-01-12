@@ -145,6 +145,9 @@ class FormPrenotaLezioni extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(0, 30, 0, 10),
               child: Text(
                 "Scegli la materia che desideri prenotare",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             Container(
@@ -195,6 +198,9 @@ class FormPrenotaLezioni extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(0, 30, 0, 10),
               child: Text(
                 "Seleziona l'orario e il professore desiderato",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             Container(
