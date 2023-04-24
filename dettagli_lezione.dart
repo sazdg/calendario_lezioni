@@ -59,6 +59,7 @@ class DettagliLezionePage extends StatelessWidget {
           controller.coloreBottoneEffettuato.value = Colors.grey;
           controller.coloreBottoneDisdetto.value = Colors.grey ;
           controller.bottoneDisabilitato.value = true;
+          //aggiornamento della lista lezioni prenotate
           ctrlLezione.listalezioni.value = <Lezione>[];
           UserPage prova = new UserPage(); //istanza della classe userpage
           prova.getDataListaLezioni(); //chiama la funzione per inserire lista lezioni con i dati aggiornati

@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
           home:Login(),
-          getPages: funzioneRouting(), //QUELLA FATTA CON GETPAGES
+          getPages: funzioneRouting(), //FATTA CON GETPAGES
 
         );
       },
@@ -48,8 +48,6 @@ class MyApp extends StatelessWidget {
 
 class Login extends StatelessWidget {
 
-
- //final AuthController controller = Get.find();
   @override
   Widget build(BuildContext context) {
       return LoginPage();
